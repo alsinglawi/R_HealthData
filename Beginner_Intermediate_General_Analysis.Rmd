@@ -9,11 +9,18 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Load Required Libraries
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r Load Libraries, include=FALSE}
+library(tidyverse)
+library(lubridate)
+```
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Load the Dataset
+```{r Loading Data, echo=FALSE}
+data <- read_csv("healthcare_dataset.csv")
+```
+
 
 ## Including Plots
 
