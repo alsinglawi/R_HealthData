@@ -17,8 +17,23 @@ library(lubridate)
 ```
 
 ## Load the Dataset
-```{r Loading Data, echo=FALSE}
+```{r Loading Data, include=FALSE}
 data <- read_csv("healthcare_dataset.csv")
+```
+## Data structure and summary
+```{r Data Summary, echo=FALSE}
+glimpse(data)
+```
+As we see, there are 15 columns(variables) with 10000 rows. All seems to be with the correct data types (will check later)
+
+What is needed here:
+1. Change variables names.
+2. Check dates data types
+3. Think about new features to extract and add for deep analysis
+
+
+```{r Data Summary, echo=FALSE}
+summary(data)
 ```
 
 
