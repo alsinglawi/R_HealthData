@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
+library(dplyr)
 ```
 
 ## Load the Dataset
@@ -52,7 +53,7 @@ ggplot(data, aes(x = Age)) +
 ```
 So, almost all 10-year category having very close number of patients with lesser extent for age between 15-25 category. 
 
-Let's check if there are missing data in the tibble
+Let's check if there are missing values in the tibble
 
 ```{r Missing Data, echo=FALSE}
 # Check for missing values
@@ -60,6 +61,30 @@ colSums(is.na(data))
 ```
 # Good news! there are no missing values in the dataset
 
+
+Checking duplicates
+```{r Duplicate data, echo=FALSE}
+duplicates <- data[duplicated(data), ]
+head(duplicates, 5)
+```
+No duplicated rows!
+
+# Rename some column names to get rid of space:
+
+```{r Rename Columns, echo=FALSE}
+data <- data %>% 
+  rename(BloodType = `Blood Type`, MedicalCondition = `Medical Condition`, AdmDate = `Date of Admission`, Insurance = `Insurance Provider`, BillingAmount = `Billing Amount`, RoomNum = `Room Number`, AdmType = `Admission Type`, DischDate = `Discharge Date`, TestResults = `Test Results`)
+```
+
+# Convert categorical variables to factors
+```{r Change Data Type, echo=FALSE}
+data <- data %>%
+  mutate(across(where(is.character), as.factor))
+```
+
+```{r Check Data Types, echo=FALSE}
+glimpse(data)
+```
 
 ## Including Plots
 
