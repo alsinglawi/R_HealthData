@@ -85,6 +85,32 @@ data <- data %>%
 ```{r Check Data Types, echo=FALSE}
 glimpse(data)
 ```
+## Detect of outliers Billing Amount using IQR
+```{r Calculate IQR, echo=FALSE}
+Q1 <- quantile(data$BillingAmount, 0.25)
+Q3 <- quantile(data$BillingAmount, 0.75)
+IQR <- Q3 - Q1
+```
+
+```{r Check Outliers, echo=FALSE}
+data_Outliers <- data %>%
+  filter(BillingAmount < (Q1 - 1.5 * IQR) & BillingAmount > (Q3 + 1.5 * IQR))
+
+```
+
+No Outliers!
+
+## Feature engineering
+
+#Calculate and Add Hospital Length of Stay
+```{r Add LOS, echo=FALSE}
+data <- data %>%
+  mutate(LOS = as.numeric(DischDate - AdmDate))
+```
+
+
+
+
 
 ## Including Plots
 
