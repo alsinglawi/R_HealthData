@@ -35,7 +35,7 @@ What is needed here:
 ```{r Data Summary, echo=FALSE}
 summary(data)
 ```
-
+As we see, We have 10 character variables. Gender, Blood Type, Admission Type and Test Results could be categorical in addition to Age if we want to analyze age categories. 3 numerical Age, Billing Amount and Room Number, the latter is not very informative, so we consider drop it. 2 Date variables.
 
 ## Including Plots
 
