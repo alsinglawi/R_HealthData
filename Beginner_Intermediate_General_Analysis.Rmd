@@ -112,6 +112,39 @@ data <- data %>%
 
 
 
+## Visualization
+
+```{r Blood Type Distribution & Gender, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = BloodType, fill = Gender))
+```
+
+```{r Admission Type Distribution & Gender, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = AdmType, fill = Gender))
+```
+
+```{r Medical Condition Distribution & Gender, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = MedicalCondition, fill = Gender))
+```
+
+```{r Medical Condition Distribution & Blood Type, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = MedicalCondition, fill = BloodType))
+```
+
+```{r Admission Type Distribution & Medical Condition, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = AdmType, fill = MedicalCondition))
+```
+
+```{r Admission Type  Distribution & Test Results, echo=FALSE}
+ggplot(data = data) +
+geom_bar(mapping = aes(x = AdmType, fill = TestResults))
+```
+
+
 ## Including Plots
 
 
