@@ -69,6 +69,7 @@ head(duplicates, 5)
 ```
 No duplicated rows!
 
+# Data Cleaning
 # Rename some column names to get rid of space:
 
 ```{r Rename Columns, echo=FALSE}
