@@ -109,6 +109,10 @@ data <- data %>%
   mutate(LOS = as.numeric(DischDate - AdmDate))
 ```
 
+```{r}
+data <- data %>%
+  mutate(DayCost = BillingAmount / LOS)
+```
 
 
 
