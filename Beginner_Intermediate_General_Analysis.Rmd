@@ -16,6 +16,7 @@ library(tidyverse)
 library(lubridate)
 library(ggplot2)
 library(dplyr)
+library(reshape2)
 ```
 
 ## Load the Dataset
@@ -120,6 +121,14 @@ data %>%
   arrange(desc(n))
 ```
 
+# Average billing amount per medical condition
+```{r Average Billing By Condition, echo=FALSE}
+AverageBillingByCondition <- data %>%
+  group_by(MedicalCondition) %>%
+  summarise(AverageBilling = mean(BillingAmount, na.rm = TRUE))
+
+print(AverageBillingByCondition)
+```
 
 ## Feature engineering
 
@@ -133,7 +142,6 @@ data <- data %>%
 data <- data %>%
   mutate(DayCost = BillingAmount / LOS)
 ```
-
 
 
 
@@ -168,6 +176,27 @@ geom_bar(mapping = aes(x = AdmType, fill = MedicalCondition))
 ggplot(data = data) +
 geom_bar(mapping = aes(x = AdmType, fill = TestResults))
 ```
+## Correlation Analysis
+```{r Correlation , echo=FALSE}
+cor_data <- data %>%
+  select(where(is.numeric)) %>%
+  cor()
+
+print(cor_data)
+```
+
+## Heat map in ggplot requires data to be in long format, so we use melt function
+```{r Melting data frame, echo=FALSE}
+data_melt <- melt(cor_data)
+data_melt
+```
+
+## Correlation heatmap
+```{r Correlation heatmap, echo=FALSE}
+ggplot(data_melt, aes(Var1, Var2)) +                           # Create heatmap with ggplot2
+  geom_tile(aes(fill = value))
+```
+
 
 
 ## Including Plots
