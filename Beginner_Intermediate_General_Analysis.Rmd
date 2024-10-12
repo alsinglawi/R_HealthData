@@ -121,6 +121,7 @@ data %>%
   arrange(desc(n))
 ```
 
+
 # Average billing amount per medical condition
 ```{r Average Billing By Condition, echo=FALSE}
 AverageBillingByCondition <- data %>%
@@ -129,10 +130,19 @@ AverageBillingByCondition <- data %>%
 
 print(AverageBillingByCondition)
 ```
+## Plotting average cost of each diagnosis
+```{r Average Cost of each Diagnosis, echo=FALSE}
+ggplot(AverageBillingByCondition, aes(x = reorder(MedicalCondition, -AverageBilling), y = AverageBilling)) +
+  geom_bar(stat = "identity", fill = "salmon") +
+  labs(x = "Medical Condition", y = "Average Billing Amount", title = "Average Billing Amount by Medical Condition") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
-# Average billing amount per Hospital
 
-```{r}
+## Average billing amount per Hospital
+
+```{r Average Billing by Hospital, echo=FALSE}
 AverageBillingByHospital <- data %>%
   group_by(Hospital) %>%
   summarise(AverageBilling = mean(BillingAmount, na.rm = TRUE))
@@ -140,16 +150,57 @@ AverageBillingByHospital <- data %>%
 print(AverageBillingByHospital)
 ```
 
+## Top 10 Average billing amount per Hospital
+```{r Top 10 Hospitals of Average Billing , echo=FALSE}
+Top10AverageBillingByHospital <- data %>%
+  group_by(Hospital) %>%
+  summarise(AverageBilling = mean(BillingAmount, na.rm = TRUE)) %>%
+  arrange(desc(AverageBilling)) %>%
+  slice_head(n = 10)
+
+print(Top10AverageBillingByHospital)
+```
+
+## Plotting average cost of Top 10 hospital
+```{r Top 10 Hospitals in Cost, echo=FALSE}
+ggplot(Top10AverageBillingByHospital, aes(x = reorder(Hospital, -AverageBilling), y = AverageBilling)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(x = "Hospital", y = "Average Billing Amount", title = "Average Billing Amount of Top 10 Hospital") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Lowest 10 Average billing amount per Hospital
+```{r Lowest10 Hospitals of Average Billing, echo=FALSE}
+Low10AverageBillingByHospital <- data %>%
+  group_by(Hospital) %>%
+  summarise(AverageBilling = mean(BillingAmount, na.rm = TRUE)) %>%
+  arrange(desc(AverageBilling)) %>%
+  slice_tail(n = 10)
+
+print(Low10AverageBillingByHospital)
+```
+
+## Plotting average cost of Lowest 10 hospital
+```{r Lowest 10 Hospitals in Cost, echo=FALSE}
+ggplot(Low10AverageBillingByHospital, aes(x = reorder(Hospital, -AverageBilling), y = AverageBilling)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(x = "Hospital", y = "Average Billing Amount", title = "Average Billing Amount of Lowest 10 Hospital") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
 
 ## Feature engineering
+### Calculate and Add Hospital Length of Stay
 
-#Calculate and Add Hospital Length of Stay
 ```{r Add LOS, echo=FALSE}
 data <- data %>%
   mutate(LOS = as.numeric(DischDate - AdmDate))
 ```
 
-```{r}
+```{r Add DayCost, echo=FALSE}
 data <- data %>%
   mutate(DayCost = BillingAmount / LOS)
 ```
