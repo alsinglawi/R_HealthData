@@ -130,6 +130,17 @@ AverageBillingByCondition <- data %>%
 print(AverageBillingByCondition)
 ```
 
+# Average billing amount per Hospital
+
+```{r}
+AverageBillingByHospital <- data %>%
+  group_by(Hospital) %>%
+  summarise(AverageBilling = mean(BillingAmount, na.rm = TRUE))
+
+print(AverageBillingByHospital)
+```
+
+
 ## Feature engineering
 
 #Calculate and Add Hospital Length of Stay
